@@ -5,6 +5,7 @@ import me.hdhwang.springbootdeveloper.domain.Article;
 import me.hdhwang.springbootdeveloper.dto.AddArticleRequest;
 import me.hdhwang.springbootdeveloper.dto.ArticleResponse;
 import me.hdhwang.springbootdeveloper.service.BlogService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +43,12 @@ public class BlogApiController {
         Article article = blogService.findById(id);
 
         return ResponseEntity.ok().body(new ArticleResponse(article));
+    }
+
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+        blogService.delete(id);
+
+        return ResponseEntity.ok().build();
     }
 }
